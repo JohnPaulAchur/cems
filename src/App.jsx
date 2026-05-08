@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer,toast  } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { AuthProvider, useAuth } from './context/AuthContext'
@@ -20,6 +20,7 @@ import NotFoundPage from './pages/NotFoundPage'
 
 // Layout Components
 import Navbar from './components/common/Navbar'
+import EventCreatePage from './pages/EventCreatePage'
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -57,6 +58,15 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+                  path="/events/create"
+                  element={
+                    <ProtectedRoute>
+                      <EventCreatePage />
+                    </ProtectedRoute>
+                  }
+                />
 
         {/* 404 Route */}
         <Route path="*" element={<NotFoundPage />} />

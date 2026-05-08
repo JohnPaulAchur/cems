@@ -39,7 +39,8 @@ export default function LoginPage() {
     if (result.success) {
       navigate('/dashboard')
     } else {
-      notifyError(result.error)
+      // notifyError(result.error)
+      alert(result.error)
     }
   }
 

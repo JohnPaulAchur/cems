@@ -34,22 +34,22 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/events/{event}/reject', [EventController::class, 'rejectEvent']);
 
     // Schedule Routes (to be implemented)
-    Route::get('/student/schedule', 'ScheduleController@getSchedule');
-    Route::get('/student/schedule/clashes', 'ScheduleController@checkClashes');
-    Route::post('/student/schedule/classes', 'ScheduleController@addClass');
+    // Route::get('/student/schedule', 'ScheduleController@getSchedule');
+    // Route::get('/student/schedule/clashes', 'ScheduleController@checkClashes');
+    // Route::post('/student/schedule/classes', 'ScheduleController@addClass');
 
-    // Recommendation Routes (to be implemented)
-    Route::get('/events/recommended', 'RecommendationController@getRecommendations');
+    // // Recommendation Routes (to be implemented)
+    // Route::get('/events/recommended', 'RecommendationController@getRecommendations');
 
     // Networking Routes (to be implemented)
-    Route::get('/events/{event}/study-circles', 'NetworkingController@getStudyCircles');
-    Route::post('/study-circles', 'NetworkingController@createStudyCircle');
-    Route::post('/study-circles/{id}/join', 'NetworkingController@joinCircle');
+    // Route::get('/events/{event}/study-circles', 'NetworkingController@getStudyCircles');
+    // Route::post('/study-circles', 'NetworkingController@createStudyCircle');
+    // Route::post('/study-circles/{id}/join', 'NetworkingController@joinCircle');
 
     // Q&A Routes (to be implemented)
-    Route::post('/events/{event}/questions', 'QAController@submitQuestion');
-    Route::get('/events/{event}/questions', 'QAController@getQuestions');
-    Route::post('/questions/{id}/vote', 'QAController@voteQuestion');
+    // Route::post('/events/{event}/questions', 'QAController@submitQuestion');
+    // Route::get('/events/{event}/questions', 'QAController@getQuestions');
+    // Route::post('/questions/{id}/vote', 'QAController@voteQuestion');
 
     // Payment Routes
     Route::get('/payments/event/{event}/checkout-data', [PaymentController::class, 'getCheckoutData']);

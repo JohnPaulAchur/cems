@@ -40,6 +40,7 @@ export const NotificationProvider = ({ children }) => {
 
   const value = {
     notify,
+    showNotification: notify,
     success,
     error,
     warning,

@@ -25,8 +25,10 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       if (token) {
         try {
-          const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/user`)
-          setUser(response.data.user)
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/me`)
+          setUser(response.data)
+          // const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/user`)
+          // setUser(response.data.user)
           setError(null)
         } catch (err) {
           console.error('Auth check failed:', err)
@@ -40,26 +42,41 @@ export const AuthProvider = ({ children }) => {
     checkAuth()
   }, [token])
 
-  const login = async (email, password) => {
-    setLoading(true)
-    setError(null)
-    try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, {
-        email,
-        password,
-      })
-      const { token: newToken, user: userData } = response.data
-      setToken(newToken)
-      setUser(userData)
-      return { success: true }
-    } catch (err) {
-      const errorMsg = err.response?.data?.message || 'Login failed'
-      setError(errorMsg)
-      return { success: false, error: errorMsg }
-    } finally {
-      setLoading(false)
-    }
+const login = async (email, password) => {
+  setLoading(true)
+  setError(null)
+
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/auth/login`,
+      { email, password }
+    )
+
+    const newToken = response.data?.token
+    const userData = response.data?.user
+
+    if (!newToken) throw new Error('Token missing from backend')
+
+    setToken(newToken)
+    setUser(userData)
+
+    return { success: true }
+  } catch (err) {
+    console.log('LOGIN ERROR:', err)
+
+    const errorMsg =
+      err.response?.data?.message ||
+      err.response?.data?.errors?.email?.[0] ||
+      err.message ||
+      'Login failed'
+
+    setError(errorMsg)
+
+    return { success: false, error: errorMsg }
+  } finally {
+    setLoading(false)
   }
+}
 
   const register = async (formData) => {
     setLoading(true)
